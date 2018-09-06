@@ -1,4 +1,4 @@
-package net.francescopellegrini
+package com.github.francescopellegrini
 
 import ch.qos.logback.classic.Logger
 import ch.qos.logback.classic.spi.ILoggingEvent
