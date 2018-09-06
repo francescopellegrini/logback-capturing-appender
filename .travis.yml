@@ -1,0 +1,15 @@
+language: scala
+
+scala:
+- 2.12.6
+
+jdk: oraclejdk8
+
+sudo: false
+
+cache:
+  directories:
+  - $HOME/.ivy2
+  - $HOME/.sbt
+
+script: sbt ++$TRAVIS_SCALA_VERSION test
