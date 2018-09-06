@@ -2,9 +2,10 @@ import Dependencies._
 
 lazy val root = (project in file("."))
   .settings(
+    homepage := Some(url("https://github.com/francescopellegrini/logback-capturing-appender")),
     libraryDependencies ++= prodDeps ++ testDeps,
     name := "logback-capturing-appender",
-    organization := "net.francescopellegrini",
+    organization := "com.github.francescopellegrini",
     parallelExecution in Test := false,
     publishArtifact in Test := false,
     scalacOptions ++= Seq("-deprecation",
