@@ -17,3 +17,23 @@ lazy val root = (project in file("."))
   * sbt-scalafmt plugin
   */
 scalafmtOnCompile := true
+
+/**
+  * sbt-release plugin
+  */
+import ReleaseTransformations._
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommand("publishSigned"),
+  setNextVersion,
+  commitNextVersion,
+  releaseStepCommand("sonatypeRelease"),
+  pushChanges
+)
