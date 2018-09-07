@@ -2,7 +2,6 @@ import Dependencies._
 
 lazy val root = (project in file("."))
   .settings(
-    homepage := Some(url("https://github.com/francescopellegrini/logback-capturing-appender")),
     libraryDependencies ++= prodDeps ++ testDeps,
     name := "logback-capturing-appender",
     organization := "com.github.francescopellegrini",
@@ -18,3 +17,8 @@ lazy val root = (project in file("."))
   * sbt-scalafmt plugin
   */
 scalafmtOnCompile := true
+
+/**
+  * sbt-pgp plugin
+  */
+useGpg := true
