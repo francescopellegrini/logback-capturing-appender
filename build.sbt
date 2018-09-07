@@ -31,9 +31,9 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion,
   commitReleaseVersion,
   tagRelease,
-  releaseStepCommand("publishSigned"),
+  releaseStepTask(PgpKeys.publishSigned),
   setNextVersion,
   commitNextVersion,
-  releaseStepCommand("sonatypeRelease"),
+  releaseStepCommand(Sonatype.SonatypeCommand.sonatypeRelease),
   pushChanges
 )
