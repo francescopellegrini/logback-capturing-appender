@@ -17,8 +17,3 @@ lazy val root = (project in file("."))
   * sbt-scalafmt plugin
   */
 scalafmtOnCompile := true
-
-/**
-  * sbt-pgp plugin
-  */
-useGpg := true
