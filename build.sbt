@@ -8,7 +8,12 @@ lazy val root = (project in file("."))
     parallelExecution in Test := false,
     publishArtifact in Test := false,
     scalacOptions ++= Seq("-deprecation",
-      "-encoding", "utf8"
+      "-encoding", "utf8",
+      "-Xlint:missing-interpolator",
+      "-Xlint:private-shadow",
+      "-Xlint:type-parameter-shadow",
+      "-Ywarn-dead-code",
+      "-Ywarn-unused"
     ),
     scalaVersion := "2.12.6"
   )
