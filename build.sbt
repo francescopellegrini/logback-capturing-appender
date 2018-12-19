@@ -1,44 +1,52 @@
 import Dependencies._
 
-lazy val root = (project in file("."))
-  .settings(
-    libraryDependencies ++= prodDeps ++ testDeps,
-    name := "logback-capturing-appender",
-    organization := "com.github.francescopellegrini",
-    parallelExecution in Test := false,
-    publishArtifact in Test := false,
-    scalacOptions ++= Seq("-deprecation",
-      "-encoding", "utf8",
-      "-Xlint:missing-interpolator",
-      "-Xlint:private-shadow",
-      "-Xlint:type-parameter-shadow",
-      "-Ywarn-dead-code",
-      "-Ywarn-unused"
-    ),
-    scalaVersion := "2.12.6"
-  )
+lazy val compileSettings = Seq(
+  scalacOptions ++= Seq("-deprecation",
+    "-encoding", "utf8",
+    "-Xlint:missing-interpolator",
+    "-Xlint:private-shadow",
+    "-Xlint:type-parameter-shadow",
+    "-Ywarn-dead-code",
+    "-Ywarn-unused"
+  ),
+  scalafmtOnCompile := true,
+  scalaVersion := Version.Scala
+)
 
-/**
-  * sbt-scalafmt plugin
-  */
-scalafmtOnCompile := true
+lazy val dependenciesSettings = Seq(
+  libraryDependencies ++= prodDeps ++ testDeps
+)
 
-/**
-  * sbt-release plugin
-  */
 import ReleaseTransformations._
 
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepTask(PgpKeys.publishSigned),
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand(Sonatype.SonatypeCommand.sonatypeRelease),
-  pushChanges
+lazy val publishSettings = Seq(
+  Test / publishArtifact := false,
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    releaseStepTask(PgpKeys.publishSigned),
+    setNextVersion,
+    commitNextVersion,
+    releaseStepCommand(Sonatype.SonatypeCommand.sonatypeRelease),
+    pushChanges
+  )
 )
+
+lazy val testSettings = Seq(
+  Test / parallelExecution := false
+)
+
+lazy val root = (project in file("."))
+  .settings(
+    name := "logback-capturing-appender",
+    organization := "com.github.francescopellegrini",
+  )
+  .settings(compileSettings: _*)
+  .settings(dependenciesSettings: _*)
+  .settings(publishSettings: _*)
+  .settings(testSettings: _*)
