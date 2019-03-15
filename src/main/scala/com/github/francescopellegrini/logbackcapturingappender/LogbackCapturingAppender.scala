@@ -1,4 +1,4 @@
-package com.github.francescopellegrini
+package com.github.francescopellegrini.logbackcapturingappender
 
 import ch.qos.logback.classic.Logger
 import ch.qos.logback.classic.spi.ILoggingEvent
