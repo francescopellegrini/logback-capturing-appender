@@ -5,7 +5,7 @@ object Dependencies {
   object Version {
 
     lazy val LogbackClassic = "1.2.3"
-    lazy val ScalaTest      = "3.0.5"
+    lazy val ScalaTest      = "3.0.6"
     lazy val Scala          = "2.12.8"
 
   }
