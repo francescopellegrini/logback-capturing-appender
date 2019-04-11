@@ -1,21 +1,21 @@
 import sbt._
 
 object Dependencies {
-  
-  object Version {
 
-    lazy val LogbackClassic = "1.2.3"
-    lazy val ScalaTest      = "3.0.6"
-    lazy val Scala          = "2.12.8"
+  object Versions {
+
+    val LogbackClassic = "1.2.3"
+    val ScalaTest      = "3.0.7"
+    val Scala          = "2.12.8"
 
   }
-  
+
   lazy val prodDeps: Seq[ModuleID] = Seq(
-    "ch.qos.logback" % "logback-classic" % Version.LogbackClassic
+    "ch.qos.logback" % "logback-classic" % Versions.LogbackClassic
   )
 
   lazy val testDeps: Seq[ModuleID] = Seq(
-    "org.scalatest" %% "scalatest" % Version.ScalaTest
+    "org.scalatest" %% "scalatest" % Versions.ScalaTest
   ).map(_ % Test)
 
 }

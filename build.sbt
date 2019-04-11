@@ -1,23 +1,29 @@
 import Dependencies._
+import ReleaseTransformations._
 
 lazy val compileSettings = Seq(
-  scalacOptions ++= Seq("-deprecation",
-    "-encoding", "utf8",
+  Compile / compile := (Compile / compile)
+    .dependsOn(
+      Compile / scalafmtSbt,
+      Compile / scalafmtAll
+    )
+    .value,
+  scalacOptions ++= Seq(
+    "-deprecation",
+    "-encoding",
+    "utf8",
     "-Xlint:missing-interpolator",
     "-Xlint:private-shadow",
     "-Xlint:type-parameter-shadow",
     "-Ywarn-dead-code",
     "-Ywarn-unused"
   ),
-  scalafmtOnCompile := true,
-  scalaVersion := Version.Scala
+  scalaVersion := Versions.Scala
 )
 
 lazy val dependenciesSettings = Seq(
   libraryDependencies ++= prodDeps ++ testDeps
 )
-
-import ReleaseTransformations._
 
 lazy val publishSettings = Seq(
   Test / publishArtifact := false,
@@ -38,13 +44,14 @@ lazy val publishSettings = Seq(
 )
 
 lazy val testSettings = Seq(
+  Test / logBuffered := false,
   Test / parallelExecution := false
 )
 
 lazy val root = (project in file("."))
   .settings(
     name := "logback-capturing-appender",
-    organization := "com.github.francescopellegrini",
+    organization := "com.github.francescopellegrini"
   )
   .settings(compileSettings: _*)
   .settings(dependenciesSettings: _*)
