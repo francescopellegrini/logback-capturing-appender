@@ -5,8 +5,8 @@ object Dependencies {
   object Versions {
 
     val LogbackClassic = "1.2.3"
-    val ScalaTest      = "3.0.7"
-    val Scala          = "2.12.8"
+    val ScalaTest      = "3.0.8"
+    val Scala          = "2.12.9"
 
   }
 
