@@ -35,10 +35,8 @@ lazy val publishSettings = Seq(
     setReleaseVersion,
     commitReleaseVersion,
     tagRelease,
-    releaseStepTask(PgpKeys.publishSigned),
     setNextVersion,
     commitNextVersion,
-    releaseStepCommand(Sonatype.SonatypeCommand.sonatypeRelease),
     pushChanges
   )
 )
