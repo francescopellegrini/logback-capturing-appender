@@ -1,5 +1,6 @@
 import Dependencies._
 import ReleaseTransformations._
+import sbtrelease.Version
 
 lazy val compileSettings = Seq(
   Compile / compile := (Compile / compile)
@@ -26,7 +27,19 @@ lazy val dependenciesSettings = Seq(
 )
 
 lazy val publishSettings = Seq(
+  licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
   Test / publishArtifact := false,
+  developers := List(
+    Developer(
+      "francescopellegrini",
+      "Francesco Pellegrini",
+      "francesco.pelle@gmail.com",
+      url("https://github.com/francescopellegrini")
+    )
+  )
+)
+
+lazy val releaseSettings = Seq(
   releaseProcess := Seq[ReleaseStep](
     checkSnapshotDependencies,
     inquireVersions,
@@ -35,12 +48,11 @@ lazy val publishSettings = Seq(
     setReleaseVersion,
     commitReleaseVersion,
     tagRelease,
-    releaseStepTask(PgpKeys.publishSigned),
     setNextVersion,
     commitNextVersion,
-    releaseStepCommand(Sonatype.SonatypeCommand.sonatypeRelease),
     pushChanges
-  )
+  ),
+  releaseVersionBump := Version.Bump.Minor
 )
 
 lazy val testSettings = Seq(
@@ -56,4 +68,5 @@ lazy val root = (project in file("."))
   .settings(compileSettings: _*)
   .settings(dependenciesSettings: _*)
   .settings(publishSettings: _*)
+  .settings(releaseSettings: _*)
   .settings(testSettings: _*)
