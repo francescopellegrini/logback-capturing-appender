@@ -36,6 +36,8 @@
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+# *.iml
+# *.ipr
 
 # CMake
 cmake-build-*/
@@ -83,6 +85,9 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+# Sonarlint plugin
+.idea/sonarlint
+
 ### SBT ###
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
@@ -100,5 +105,6 @@ project/plugins/project/
 ### Scala ###
 *.class
 *.log
+*.metals
 
 # End of https://www.gitignore.io/api/sbt,scala,intellij+all

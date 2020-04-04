@@ -1,9 +1,11 @@
 package com.github.francescopellegrini.logbackcapturingappender
 
 import ch.qos.logback.classic.Level
-import org.scalatest.{Matchers, OptionValues, Outcome, fixture}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.{OptionValues, Outcome}
+import org.scalatest.wordspec.FixtureAnyWordSpecLike
 
-class LogbackCapturingAppenderSpec extends fixture.WordSpecLike with Matchers with OptionValues {
+class LogbackCapturingAppenderSpec extends FixtureAnyWordSpecLike with Matchers with OptionValues {
 
   "LogbackCapturingAppender" should {
     "capture a given log event" in { f =>
