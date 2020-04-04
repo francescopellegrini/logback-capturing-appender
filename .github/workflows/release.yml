@@ -2,12 +2,11 @@ name: Release
 
 on:
   push:
-    tags:
-    - '*'
+    branches: [master]
+    tags: ["*"]
 
 jobs:
-  build:
-
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +15,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Release
+    - uses: olafurpg/setup-gpg@v2
+    - name: Publish artifacts
       run: sbt ci-release || sbt sonatypeReleaseAll
       env:
         PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
