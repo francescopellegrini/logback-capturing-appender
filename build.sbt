@@ -63,7 +63,8 @@ lazy val testSettings = Seq(
 lazy val root = (project in file("."))
   .settings(
     name := "logback-capturing-appender",
-    organization := "com.github.francescopellegrini"
+    organization := "com.github.francescopellegrini",
+    homepage := Some(url("https://github.com/francescopellegrini/logback-capturing-appender"))
   )
   .settings(compileSettings: _*)
   .settings(dependenciesSettings: _*)
