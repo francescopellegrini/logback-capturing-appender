@@ -13,3 +13,14 @@ Add to `build.sbt` (replace x.x.x with the appropriate version):
 ```scala
 libraryDependencies += "com.github.francescopellegrini" %% "logback-capturing-appender" % "x.x.x"
 ```
+
+## How to use
+
+```scala
+val capturingAppender = LogbackCapturingAppender(slf4jLogger).startCapturing()
+
+// log some messages
+
+// Get all events logged at the configured level
+capturingAppender.loggedEvents
+```
