@@ -2,6 +2,9 @@ import Dependencies._
 import ReleaseTransformations._
 import sbtrelease.Version
 
+addCommandAlias("fix", "all compile:scalafix test:scalafix")
+addCommandAlias("fixCheck", "; compile:scalafix --check ; test:scalafix --check")
+
 lazy val compileSettings = Seq(
   Compile / compile := (Compile / compile)
     .dependsOn(
@@ -9,21 +12,12 @@ lazy val compileSettings = Seq(
       Compile / scalafmtAll
     )
     .value,
-  scalacOptions ++= Seq(
-    "-deprecation",
-    "-encoding",
-    "utf8",
-    "-Xlint:missing-interpolator",
-    "-Xlint:private-shadow",
-    "-Xlint:type-parameter-shadow",
-    "-Ywarn-dead-code",
-    "-Ywarn-unused"
-  ),
   scalaVersion := Versions.Scala
-)
+) ++ CompilerPlugins.compilerPlugins
 
 lazy val dependenciesSettings = Seq(
-  libraryDependencies ++= prodDeps ++ testDeps
+  libraryDependencies ++= prodDeps ++ testDeps,
+  ThisBuild / scalafixDependencies ++= scalafixDeps
 )
 
 lazy val publishSettings = Seq(

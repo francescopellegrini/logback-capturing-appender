@@ -1,3 +1,5 @@
-addSbtPlugin("org.scalameta"     % "sbt-scalafmt"   % "2.3.2")
-addSbtPlugin("com.github.gseitz" % "sbt-release"    % "1.0.13")
-addSbtPlugin("com.geirsson"      % "sbt-ci-release" % "1.5.2")
+addSbtPlugin("org.scalameta"             % "sbt-scalafmt"   % "2.3.2")
+addSbtPlugin("com.github.gseitz"         % "sbt-release"    % "1.0.13")
+addSbtPlugin("com.geirsson"              % "sbt-ci-release" % "1.5.2")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"   % "0.1.10")
+addSbtPlugin("ch.epfl.scala"             % "sbt-scalafix"   % "0.9.12")
