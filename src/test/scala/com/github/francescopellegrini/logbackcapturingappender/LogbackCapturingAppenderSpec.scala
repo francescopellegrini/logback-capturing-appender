@@ -2,54 +2,48 @@ package com.github.francescopellegrini.logbackcapturingappender
 
 import ch.qos.logback.classic.Level
 import org.scalatest.matchers.should.Matchers
-import org.scalatest.{OptionValues, Outcome}
 import org.scalatest.wordspec.FixtureAnyWordSpecLike
+import org.scalatest.{OptionValues, Outcome}
 
 class LogbackCapturingAppenderSpec extends FixtureAnyWordSpecLike with Matchers with OptionValues {
 
   "LogbackCapturingAppender" should {
-    "capture a given log event" in { f =>
-      val capturingAppender = LogbackCapturingAppender(f.clazz.logger)
-      val logMessage        = "This message should be logged at debug level"
+    "capture log events" in { f =>
+      val logMessages = Seq("This message should be logged at debug level", "Also this message should be logged at debug level")
 
-      f.clazz.logger.debug(logMessage)
+      logMessages.foreach(f.testClass.logger.debug)
 
-      val event = capturingAppender.loggedEvent.value
-
-      event.getLevel shouldBe Level.DEBUG
-      event.getMessage shouldBe logMessage
+      f.capturingAppender.loggedEvents.collect {
+        case event if event.getLevel == Level.DEBUG => event.getMessage
+      }.toList should contain theSameElementsInOrderAs logMessages
     }
 
     "not capture any log event after cleanup" in { f =>
-      val capturingAppender = LogbackCapturingAppender(f.clazz.logger)
-      val logMessage        = "This message should be logged at info level"
+      val logMessages = Seq("This message should be logged at info level", "Also this message should be logged at info level")
 
-      f.clazz.logger.info(logMessage)
+      logMessages.foreach(f.testClass.logger.info)
 
-      LogbackCapturingAppender.cleanUp()
+      f.capturingAppender.cleanup()
 
-      f.clazz.logger.error("This message should not be logged at all", new Exception)
+      f.testClass.logger.error("This message should not be logged at all", new Exception)
 
-      val event = capturingAppender.loggedEvent.value
-
-      event.getLevel shouldBe Level.INFO
-      event.getMessage shouldBe logMessage
+      f.capturingAppender.loggedEvents.collect {
+        case event if event.getLevel == Level.INFO => event.getMessage
+      }.toList should contain theSameElementsInOrderAs logMessages
     }
 
   }
 
   // Override FixtureParam type definition
-  case class FixtureParam(clazz: LoggerTestClass)
+  case class FixtureParam(testClass: LoggerTestClass, capturingAppender: LogbackCapturingAppender)
 
   override def withFixture(test: OneArgTest): Outcome = {
     // Build the fixture
-    val theFixture = FixtureParam(new LoggerTestClass)
+    val testClass         = new LoggerTestClass
+    val capturingAppender = LogbackCapturingAppender(testClass.logger).startCapturing()
+    val theFixture        = FixtureParam(testClass, capturingAppender)
 
-    try {
-      withFixture(test.toNoArgTest(theFixture)) // "loan" the fixture to the test
-    } finally {
-      LogbackCapturingAppender.cleanUp()
-    }
+    withFixture(test.toNoArgTest(theFixture)) // "loan" the fixture to the test
   }
 
 }
