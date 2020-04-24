@@ -20,6 +20,12 @@ lazy val dependenciesSettings = Seq(
   ThisBuild / scalafixDependencies ++= scalafixDeps
 )
 
+lazy val coverageSettings = Seq(
+  coverageEnabled := true,
+  coverageMinimum := 80,
+  coverageFailOnMinimum := false
+)
+
 lazy val publishSettings = Seq(
   licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
   Test / publishArtifact := false,
@@ -62,6 +68,7 @@ lazy val root = (project in file("."))
   )
   .settings(compileSettings: _*)
   .settings(dependenciesSettings: _*)
+  .settings(coverageSettings: _*)
   .settings(publishSettings: _*)
   .settings(releaseSettings: _*)
   .settings(testSettings: _*)
