@@ -21,9 +21,7 @@ lazy val dependenciesSettings = Seq(
 )
 
 lazy val coverageSettings = Seq(
-  coverageEnabled := true,
-  coverageMinimum := 80,
-  coverageFailOnMinimum := false
+  coverageMinimum := 80
 )
 
 lazy val publishSettings = Seq(
